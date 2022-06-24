@@ -1,2 +1,2 @@
-# wp-timed-admin-notice
+# WP- Admin Notice
 WordPress Helper for showing admin notice
