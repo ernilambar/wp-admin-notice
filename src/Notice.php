@@ -118,9 +118,7 @@ class Notice {
 	private function __construct( $args ) {
 		if ( is_admin() ) {
 			$this->configure( $args );
-
 			$this->hooks();
-
 			$this->process_actions();
 		}
 	}
@@ -291,6 +289,10 @@ class Notice {
 	protected function in_screen() {
 		// If not screen ID is set, show everywhere.
 		if ( empty( $this->screens ) ) {
+			return true;
+		}
+
+		if ( ! function_exists( 'get_current_screen' ) ) {
 			return true;
 		}
 
