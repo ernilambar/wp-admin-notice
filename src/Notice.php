@@ -208,12 +208,14 @@ class Notice {
 
 		// Later link.
 		if ( ! empty( $this->action_labels['later'] ) ) {
-			echo '<span><a href="' . esc_url( add_query_arg( $this->key( 'action' ), 'later' ) ) . '">' . esc_html( $this->action_labels['later'] ) . '</a></span>';
+			$later_url = add_query_arg( $this->key( 'action' ), 'later' );
+			echo '<span><a href="' . esc_url( wp_nonce_url( $later_url, $this->key( 'action' ) . '-later' ) ) . '">' . esc_html( $this->action_labels['later'] ) . '</a></span>';
 		}
 
 		// Dismiss link.
 		if ( ! empty( $this->action_labels['dismiss'] ) ) {
-			echo '<span><a href="' . esc_url( add_query_arg( $this->key( 'action' ), 'dismiss' ) ) . '">' . esc_html( $this->action_labels['dismiss'] ) . '</a></span>';
+			$dismiss_url = add_query_arg( $this->key( 'action' ), 'dismiss' );
+			echo '<span><a href="' . esc_url( wp_nonce_url( $dismiss_url, $this->key( 'action' ) . '-dismiss' ) ) . '">' . esc_html( $this->action_labels['dismiss'] ) . '</a></span>';
 		}
 
 		echo '</div>';
@@ -393,20 +395,27 @@ class Notice {
 
 		$action = '';
 
-		if ( isset( $_REQUEST[ $this->key( 'action' ) ] ) && ! empty( $_REQUEST[ $this->key( 'action' ) ] ) && in_array( $_REQUEST[ $this->key( 'action' ) ], $action_list, true ) ) {
-			$action = $_REQUEST[ $this->key( 'action' ) ];
+		$current_action = isset( $_GET[ $this->key( 'action' ) ] ) ? sanitize_text_field( wp_unslash( $_GET[ $this->key( 'action' ) ] ) ) : '';
+
+		if ( in_array( $current_action, $action_list, true ) ) {
+			$action = $current_action;
 		}
 
-		switch ( $action ) {
-			case 'later':
-				// Show after 7 days.
-				$time = time() + ( $this->days * DAY_IN_SECONDS + 7 * DAY_IN_SECONDS );
-				update_site_option( $this->key( 'time' ), $time );
-				break;
-			case 'dismiss':
-				// Do not show again to this user.
-				update_user_meta( get_current_user_id(), $this->key( 'dismissed' ), true );
-				break;
+		$nonce = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+
+		if ( wp_verify_nonce( $nonce, $this->key( 'action' ) . '-' . $action ) ) {
+			switch ( $action ) {
+				case 'later':
+					// Show after 7 days.
+					$time = time() + ( $this->days * DAY_IN_SECONDS + 7 * DAY_IN_SECONDS );
+					update_site_option( $this->key( 'time' ), $time );
+					break;
+
+				case 'dismiss':
+					// Do not show again to this user.
+					update_user_meta( get_current_user_id(), $this->key( 'dismissed' ), true );
+					break;
+			}
 		}
 	}
 
