@@ -201,6 +201,8 @@ class Notice {
 	public function render_links() {
 		echo '<div class="wp-admin-notice-links" style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;">';
 
+		do_action( $this->prefix . '_before_admin_notice_link_items' );
+
 		// Review link.
 		if ( ! empty( $this->action_labels['review'] ) ) {
 			echo '<span><a href="' . esc_url( $this->get_review_url() ) . '" target="_blank">' . esc_html( $this->action_labels['review'] ) . '</a></span>';
@@ -217,6 +219,8 @@ class Notice {
 			$dismiss_url = add_query_arg( $this->key( 'action' ), 'dismiss' );
 			echo '<span><a href="' . esc_url( wp_nonce_url( $dismiss_url, $this->key( 'action' ) . '-dismiss' ) ) . '">' . esc_html( $this->action_labels['dismiss'] ) . '</a></span>';
 		}
+
+		do_action( $this->prefix . '_after_admin_notice_link_items' );
 
 		echo '</div>';
 	}
