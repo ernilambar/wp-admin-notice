@@ -3,6 +3,11 @@
   "description": "WordPress Helper for showing admin notice",
   "license": "MIT",
   "type": "library",
+  "keywords": [
+    "wordpress",
+    "admin",
+    "notice"
+  ],
   "authors": [
     {
       "name": "Nilambar Sharma",
@@ -10,18 +15,33 @@
       "homepage": "https://www.nilambar.net/"
     }
   ],
-  "keywords": ["wordpress", "admin", "notice"],
-  "homepage" : "https://github.com/ernilambar/wp-admin-notice",
+  "homepage": "https://github.com/ernilambar/wp-admin-notice",
   "support": {
     "issues": "https://github.com/ernilambar/wp-admin-notice/issues/"
   },
   "require": {
     "php": ">=5.6"
   },
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "wp-coding-standards/wpcs": "^3.1"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "Nilambar\\AdminNotice\\": "src"
     }
   },
-  "minimum-stability": "dev"
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "ergebnis/composer-normalize": true
+    },
+    "sort-packages": true
+  },
+  "scripts": {
+    "phpcbf": "@php ./vendor/bin/phpcbf --report-full --report-summary .",
+    "phpcs": "@php ./vendor/bin/phpcs --report-full --report-summary ."
+  }
 }

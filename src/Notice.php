@@ -238,7 +238,7 @@ class Notice {
 		?>
 
 		<div id="wp-admin-notice-<?php echo esc_attr( $this->slug ); ?>" class="<?php echo esc_attr( $this->get_classes() ); ?>">
-			<p><?php echo $this->message; ?></p>
+			<p><?php echo $this->message; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
 
 			<?php $this->render_links(); ?>
 		</div>
