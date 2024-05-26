@@ -51,6 +51,7 @@ docs/
 build/
 deploy/
 node_modules/
+wordpress/
 
 # Vendor
 vendor/

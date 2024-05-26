@@ -3,6 +3,6 @@ use PHPUnit\Framework\TestCase;
 
 class Example_Test extends TestCase {
     public function test_it_works() {
-			$this->assertTrue( true );
+			$this->assertTrue( function_exists( 'do_action' ) );
     }
 }

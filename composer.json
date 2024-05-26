@@ -29,7 +29,8 @@
   },
   "config": {
     "allow-plugins": {
-      "ergebnis/composer-normalize": true
+      "ergebnis/composer-normalize": true,
+      "roots/wordpress-core-installer": true
     },
     "sort-packages": true
   },
@@ -46,9 +47,11 @@
       "composer --working-dir=build-phpstan update --no-interaction",
       "build-phpstan/vendor/bin/phpstan analyse --no-progress --memory-limit=2048M"
     ],
-    "test": [
-      "composer --working-dir=build-phpunit update --no-interaction",
-      "build-phpunit/vendor/bin/phpunit --verbose"
-    ]
+    "test": "phpunit"
+  },
+  "require-dev": {
+    "roots/wordpress": "^6.5",
+    "wp-phpunit/wp-phpunit": "^6.5",
+    "yoast/phpunit-polyfills": "^2.0"
   }
 }
