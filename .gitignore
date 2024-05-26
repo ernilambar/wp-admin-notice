@@ -53,5 +53,7 @@ node_modules/
 
 # Vendor
 vendor/
+build-cs/vendor/
+build-cs/composer.lock
 build-phpstan/vendor/
 build-phpstan/composer.lock
