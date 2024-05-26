@@ -1,11 +1,28 @@
 <?php
+/**
+ * PHPUnit bootstrap file
+ */
 
-define( 'TESTS_PROJECT_DIR', dirname( __DIR__, 1 ) );
+// define( 'TESTS_PROJECT_DIR', dirname( __DIR__, 1 ) );
 
-if ( file_exists( TESTS_PROJECT_DIR . '/build-phpunit/vendor/autoload.php' ) ) {
-	require_once TESTS_PROJECT_DIR . '/build-phpunit/vendor/autoload.php';
-}
+// if ( file_exists( TESTS_PROJECT_DIR . '/build-phpunit/vendor/autoload.php' ) ) {
+// 	require_once TESTS_PROJECT_DIR . '/build-phpunit/vendor/autoload.php';
+// }
 
-if ( file_exists( TESTS_PROJECT_DIR . '/vendor/autoload.php' ) ) {
-	require_once TESTS_PROJECT_DIR . '/vendor/autoload.php';
-}
+// if ( file_exists( TESTS_PROJECT_DIR . '/vendor/autoload.php' ) ) {
+// 	require_once TESTS_PROJECT_DIR . '/vendor/autoload.php';
+// }
+
+// Composer autoloader must be loaded before WP_PHPUNIT__DIR will be available
+require_once dirname( __DIR__ ) . '/vendor/autoload.php';
+
+// Give access to tests_add_filter() function.
+require_once getenv( 'WP_PHPUNIT__DIR' ) . '/includes/functions.php';
+
+tests_add_filter( 'muplugins_loaded', function() {
+    // test set up, plugin activation, etc.
+    // require dirname( __DIR__ ) . '/example-plugin.php';
+} );
+
+// Start up the WP testing environment.
+require getenv( 'WP_PHPUNIT__DIR' ) . '/includes/bootstrap.php';
