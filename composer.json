@@ -34,17 +34,21 @@
     "sort-packages": true
   },
   "scripts": {
-    "phpcs": [
-      "composer --working-dir=build-cs update --no-interaction",
-      "build-cs/vendor/bin/phpcs --report-full --report-summary"
-    ],
     "phpcbf": [
       "composer --working-dir=build-cs update --no-interaction",
       "build-cs/vendor/bin/phpcbf --report-full --report-summary"
     ],
+    "phpcs": [
+      "composer --working-dir=build-cs update --no-interaction",
+      "build-cs/vendor/bin/phpcs --report-full --report-summary"
+    ],
     "phpstan": [
       "composer --working-dir=build-phpstan update --no-interaction",
       "build-phpstan/vendor/bin/phpstan analyse --no-progress --memory-limit=2048M"
+    ],
+    "test": [
+      "composer --working-dir=build-phpunit update --no-interaction",
+      "build-phpunit/vendor/bin/phpunit --verbose"
     ]
   }
 }

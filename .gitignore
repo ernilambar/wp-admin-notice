@@ -41,6 +41,7 @@ npm-debug.log
 *.sw?
 *.vi
 *.zip
+*.cache
 
 # Sass
 .sass-cache/
@@ -57,3 +58,6 @@ build-cs/vendor/
 build-cs/composer.lock
 build-phpstan/vendor/
 build-phpstan/composer.lock
+build-phpunit/vendor/
+build-phpunit/wordpress/
+build-phpunit/composer.lock
