@@ -22,36 +22,36 @@
   "require": {
     "php": ">=7.2.24"
   },
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "php-parallel-lint/php-parallel-lint": "^1.4",
+    "phpcompatibility/phpcompatibility-wp": "^2.1",
+    "roave/security-advisories": "dev-latest",
+    "wp-coding-standards/wpcs": "^3.1"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "Nilambar\\AdminNotice\\": "src"
     }
   },
-  "require-dev": {
-		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
-		"php-parallel-lint/php-parallel-lint": "^1.4",
-		"phpcompatibility/phpcompatibility-wp": "^2.1",
-		"roave/security-advisories": "dev-latest",
-		"wp-coding-standards/wpcs": "^3.1"
-	},
-	"minimum-stability": "dev",
-	"prefer-stable": true,
-	"config": {
-		"allow-plugins": {
-			"dealerdirect/phpcodesniffer-composer-installer": true,
-			"ergebnis/composer-normalize": true
-		},
-		"optimize-autoloader": true,
-		"process-timeout": 7200,
-		"sort-packages": true
-	},
-	"scripts": {
-		"lint": [
-			"@lint-php",
-			"@phpcs"
-		],
-		"lint-php": "@php ./vendor/bin/parallel-lint --colors --exclude .git --exclude vendor --exclude node_modules --exclude deploy .",
-		"phpcbf": "@php ./vendor/bin/phpcbf --report-full --report-summary .",
-		"phpcs": "@php ./vendor/bin/phpcs --report-full --report-summary ."
-	}
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "ergebnis/composer-normalize": true
+    },
+    "optimize-autoloader": true,
+    "process-timeout": 7200,
+    "sort-packages": true
+  },
+  "scripts": {
+    "lint": [
+      "@lint-php",
+      "@phpcs"
+    ],
+    "lint-php": "@php ./vendor/bin/parallel-lint --colors --exclude .git --exclude vendor .",
+    "phpcbf": "@php ./vendor/bin/phpcbf --report-full --report-summary .",
+    "phpcs": "@php ./vendor/bin/phpcs --report-full --report-summary ."
+  }
 }
