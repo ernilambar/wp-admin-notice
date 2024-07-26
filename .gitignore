@@ -23,11 +23,6 @@ tmp/
 # Environment files
 .env
 
-wp-cli.local.yml
-yarn-error.log
-npm-debug.log
-.pnpm-debug.log
-
 # Ignored extensions
 *~
 *.diff
@@ -43,21 +38,9 @@ npm-debug.log
 *.zip
 *.cache
 
-# Sass
-.sass-cache/
-
 # Project folders
 docs/
 build/
 deploy/
 node_modules/
-
-# Vendor
 vendor/
-build-cs/vendor/
-build-cs/composer.lock
-build-phpstan/vendor/
-build-phpstan/composer.lock
-build-phpunit/vendor/
-build-phpunit/wordpress/
-build-phpunit/composer.lock

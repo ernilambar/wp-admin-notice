@@ -69,7 +69,7 @@ class Notice {
 	 *
 	 * @since 1.0.0
 	 */
-	private $screens = array();
+	private $screens = [];
 
 	/**
 	 * Notice classes.
@@ -78,7 +78,7 @@ class Notice {
 	 *
 	 * @since 1.0.0
 	 */
-	private $classes = array( 'notice', 'notice-info' );
+	private $classes = [ 'notice', 'notice-info' ];
 
 	/**
 	 * Actions link texts.
@@ -87,7 +87,7 @@ class Notice {
 	 *
 	 * @since 1.0.0
 	 */
-	private $action_labels = array();
+	private $action_labels = [];
 
 	/**
 	 * Message.
@@ -134,7 +134,7 @@ class Notice {
 	 * @return Notice
 	 */
 	public static function init( $args ) {
-		static $notices = array();
+		static $notices = [];
 
 		$slug = ( isset( $args['slug'] ) && ! empty( $args['slug'] ) ) ? $args['slug'] : '';
 
@@ -155,7 +155,7 @@ class Notice {
 	 * @since 1.0.0
 	 */
 	public function hooks() {
-		add_action( 'admin_notices', array( $this, 'hook_notice' ) );
+		add_action( 'admin_notices', [ $this, 'hook_notice' ] );
 	}
 
 	/**
@@ -289,11 +289,7 @@ class Notice {
 		$current_user = wp_get_current_user();
 
 		// Check if current item is dismissed.
-		return (bool) get_user_meta(
-			$current_user->ID,
-			$this->key( 'dismissed' ),
-			true
-		);
+		return (bool) get_user_meta( $current_user->ID, $this->key( 'dismissed' ), true );
 	}
 
 	/**
@@ -340,7 +336,7 @@ class Notice {
 	 */
 	protected function get_classes() {
 		// Required classes.
-		$classes = array( 'notice', 'notice-info' );
+		$classes = [ 'notice', 'notice-info' ];
 
 		// Add extra classes.
 		if ( ! empty( $this->classes ) && is_array( $this->classes ) ) {
@@ -360,8 +356,8 @@ class Notice {
 	 */
 	protected function get_message() {
 		$message = sprintf(
-		// translators: %1$s Name, %2$s days.
-			esc_html__( 'Hello! Seems like you have been using %1$s for more than %2$d days – that’s awesome! Could you please do us a BIG favor and give it a 5-star rating on WordPress? This would boost our motivation and help us spread the word.', 'wp-admin-notice' ),
+			/* translators: 1: Name, 2: Days. */
+			esc_html__( 'Hello! Seems like you have been using %1$s for more than %2$d days - that\'s awesome! Could you please do us a BIG favor and give it a 5-star rating on WordPress? This would boost our motivation and help us spread the word.', 'wp-admin-notice' ),
 			'<strong>' . esc_html( $this->name ) . '</strong>',
 			(int) $this->days
 		);
@@ -402,7 +398,7 @@ class Notice {
 			return;
 		}
 
-		$action_list = array( 'later', 'dismiss' );
+		$action_list = [ 'later', 'dismiss' ];
 
 		$action = '';
 
@@ -448,28 +444,28 @@ class Notice {
 		// Default arguments.
 		$args = wp_parse_args(
 			$args,
-			array(
+			[
 				'days'          => 7,
 				'name'          => ucwords( str_replace( '-', ' ', $slug ) ),
 				'capability'    => 'manage_options',
 				'type'          => 'plugin',
-				'screens'       => array(),
-				'classes'       => array(),
-				'action_labels' => array(),
-			)
+				'screens'       => [],
+				'classes'       => [],
+				'action_labels' => [],
+			]
 		);
 
 		// Action button/link labels.
 		$this->action_labels = wp_parse_args(
 			(array) $args['action_labels'],
-			array(
+			[
 				'review'  => esc_html__( 'Ok, you deserve it', 'wp-admin-notice' ),
 				'later'   => esc_html__( 'Nope, maybe later', 'wp-admin-notice' ),
 				'dismiss' => esc_html__( 'I already did', 'wp-admin-notice' ),
-			)
+			]
 		);
 
-		if ( ! in_array( $args['type'], array( 'plugin', 'theme' ), true ) ) {
+		if ( ! in_array( $args['type'], [ 'plugin', 'theme' ], true ) ) {
 			$args['type'] = 'plugin';
 		}
 
