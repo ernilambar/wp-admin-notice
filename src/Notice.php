@@ -256,9 +256,16 @@ class Notice {
 		// Get the notice time.
 		$time = get_site_option( $this->key( 'time' ) );
 
+		$current_time      = current_datetime();
+		$current_timestamp = $current_time->getTimestamp();
+
 		// If not set, set now and bail.
 		if ( empty( $time ) ) {
-			$time = time() + ( $this->days * DAY_IN_SECONDS );
+			$interval = \DateInterval::createFromDateString( $this->days . ' day' );
+
+			$new_target_date = $current_time->add( $interval );
+
+			$time = $new_target_date->getTimestamp();
 
 			// Set to future.
 			update_site_option( $this->key( 'time' ), $time );
