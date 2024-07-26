@@ -252,7 +252,7 @@ class Notice {
 	 *
 	 * @return bool True if it's time to show notice.
 	 */
-	protected function is_time() {
+	protected function is_time_to_show() {
 		// Get the notice time.
 		$time = get_site_option( $this->key( 'time' ) );
 
@@ -274,7 +274,7 @@ class Notice {
 		}
 
 		// Check if time passed or reached.
-		return (int) $time <= time();
+		return (int) $time <= $current_timestamp;
 	}
 
 	/**
@@ -376,7 +376,7 @@ class Notice {
 		return (
 			$this->in_screen() &&
 			$this->is_capable() &&
-			$this->is_time() &&
+			$this->is_time_to_show() &&
 			! $this->is_dismissed()
 		);
 	}
@@ -414,7 +414,15 @@ class Notice {
 			switch ( $action ) {
 				case 'later':
 					// Show after 7 days.
-					$time = time() + ( $this->days * DAY_IN_SECONDS + 7 * DAY_IN_SECONDS );
+					$current_time      = current_datetime();
+					$current_timestamp = $current_time->getTimestamp();
+
+					$interval = \DateInterval::createFromDateString( $this->days . ' day' );
+
+					$new_target_date = $current_time->add( $interval );
+
+					$time = $new_target_date->getTimestamp();
+
 					update_site_option( $this->key( 'time' ), $time );
 					break;
 
