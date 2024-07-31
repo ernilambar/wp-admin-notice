@@ -38,7 +38,8 @@ tmp/
 *.zip
 *.cache
 
-# Project folders
+# Project
+composer.lock
 docs/
 build/
 deploy/
