@@ -30,7 +30,13 @@
 	<config name="ignore_warnings_on_exit" value="1"/>
 
 	<!-- Minimum support WP Version. -->
-	<config name="minimum_supported_wp_version" value="4.9"/>
+	<config name="minimum_supported_wp_version" value="6.0"/>
+
+	<!-- PHP version check. -->
+	<config name="testVersion" value="7.2-"/>
+
+	<!-- Loads the PHP Compatibility ruleset. -->
+	<rule ref="PHPCompatibilityWP" />
 
 	<!-- Don't worry about files that don't contain any code -->
 	<rule ref="Internal.NoCodeFound">

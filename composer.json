@@ -46,12 +46,12 @@
     "sort-packages": true
   },
   "scripts": {
+    "format": "@php ./vendor/bin/phpcbf --report-full --report-summary",
     "lint": [
       "@lint-php",
       "@phpcs"
     ],
     "lint-php": "@php ./vendor/bin/parallel-lint --colors --exclude .git --exclude vendor .",
-    "phpcbf": "@php ./vendor/bin/phpcbf --report-full --report-summary .",
-    "phpcs": "@php ./vendor/bin/phpcs --report-full --report-summary ."
+    "phpcs": "@php ./vendor/bin/phpcs --report-full --report-summary"
   }
 }
