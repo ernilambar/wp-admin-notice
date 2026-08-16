@@ -389,8 +389,10 @@ class Notice {
 	 * @return void
 	 */
 	protected function process_actions() {
-		// Only if required.
-		if ( ! $this->in_screen() || ! $this->is_capable() ) {
+		// Only if required. Screen is intentionally not checked here: the current
+		// screen is not yet set at admin_init when actions are processed, and the
+		// nonce already authorizes the action.
+		if ( ! $this->is_capable() ) {
 			return;
 		}
 
