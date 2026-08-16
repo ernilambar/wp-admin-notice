@@ -356,8 +356,7 @@ class Notice {
 	 */
 	protected function get_message() {
 		$message = sprintf(
-			/* translators: 1: Name, 2: Days. */
-			esc_html__( 'Hello! Seems like you have been using %1$s for more than %2$d days - that\'s awesome! Could you please do us a BIG favor and give it a 5-star rating on WordPress? This would boost our motivation and help us spread the word.', 'wp-admin-notice' ),
+			'Hello! Seems like you have been using %1$s for more than %2$d days - that\'s awesome! Could you please do us a BIG favor and give it a 5-star rating on WordPress? This would boost our motivation and help us spread the word.',
 			'<strong>' . esc_html( $this->name ) . '</strong>',
 			(int) $this->days
 		);
@@ -467,9 +466,9 @@ class Notice {
 		$this->action_labels = wp_parse_args(
 			(array) $args['action_labels'],
 			[
-				'review'  => esc_html__( 'Ok, you deserve it', 'wp-admin-notice' ),
-				'later'   => esc_html__( 'Nope, maybe later', 'wp-admin-notice' ),
-				'dismiss' => esc_html__( 'I already did', 'wp-admin-notice' ),
+				'review'  => 'Ok, you deserve it',
+				'later'   => 'Nope, maybe later',
+				'dismiss' => 'I already did',
 			]
 		);
 

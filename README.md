@@ -30,11 +30,45 @@ add_action( 'admin_init', function () {
 		[
 			'slug' => 'my-plugin',
 			'name' => 'My Plugin',
-			'days' => 7,
 		]
 	);
 } );
 ```
+
+## Advanced usage
+
+The defaults are plain English. To translate them, copy this block and swap `my-plugin` for your text domain:
+
+```php
+use Nilambar\AdminNotice\Notice;
+
+add_action( 'admin_init', function () {
+	Notice::init(
+		[
+			'slug'          => 'my-plugin',
+			'name'          => 'My Plugin',
+			'type'          => 'plugin',
+			'days'          => 7,
+			'capability'    => 'manage_options',
+			'screens'       => [],
+			'classes'       => [],
+			'message'       => sprintf(
+				/* translators: 1: Name, 2: Days. */
+				esc_html__( 'Hello! Seems like you have been using %1$s for more than %2$d days - that\'s awesome! Could you please do us a BIG favor and give it a 5-star rating on WordPress? This would boost our motivation and help us spread the word.', 'my-plugin' ),
+				'<strong>My Plugin</strong>',
+				7
+			),
+			'action_labels' => [
+				'review'  => esc_html__( 'Ok, you deserve it', 'my-plugin' ),
+				'later'   => esc_html__( 'Nope, maybe later', 'my-plugin' ),
+				'dismiss' => esc_html__( 'I already did', 'my-plugin' ),
+			],
+		]
+	);
+} );
+```
+
+Strings placed in your plugin or theme this way are picked up by `wp i18n make-pot` and translated through your normal workflow.
 
 ## Arguments
 
