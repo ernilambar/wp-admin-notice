@@ -1,6 +1,6 @@
 # Changelog
 
-## X.X.X - YYYY-MM-DD
+## 2.0.2 - 2026-08-16
 - Added: PHPUnit test suite
 - Changed: removed text domain from default strings
 - Fixed: notice visibility condition in `render()`

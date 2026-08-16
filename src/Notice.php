@@ -131,7 +131,7 @@ class Notice {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Notice
+	 * @return Notice|null
 	 */
 	public static function init( $args ) {
 		static $notices = [];
@@ -184,9 +184,6 @@ class Notice {
 
 			case 'theme':
 				$url = 'https://wordpress.org/support/theme/' . $this->slug . '/reviews/#new-post';
-				break;
-
-			default:
 				break;
 		}
 
