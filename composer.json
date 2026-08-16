@@ -53,7 +53,11 @@
       "@lint-php",
       "@phpcs"
     ],
-    "lint-php": "@php ./vendor/bin/parallel-lint -p php --colors --exclude .git --exclude vendor .",
-    "phpcs": "@php ./vendor/bin/phpcs --report-full --report-summary"
+    "lint-php": "@php ./vendor/bin/parallel-lint -p php --colors --exclude .git --exclude vendor --exclude build-phpunit .",
+    "phpcs": "@php ./vendor/bin/phpcs --report-full --report-summary",
+    "test": [
+      "composer --working-dir=build-phpunit update --no-interaction",
+      "build-phpunit/vendor/bin/phpunit"
+    ]
   }
 }

@@ -38,6 +38,8 @@ Thumbs.db
 
 # Project folders
 /build/
+/build-phpunit/composer.lock
+/build-phpunit/vendor/
 /deploy/
 /node_modules/
 /vendor/

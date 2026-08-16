@@ -1,6 +1,7 @@
 # Changelog
 
 ## X.X.X - YYYY-MM-DD
+- Added: PHPUnit test suite
 - Fixed: notice visibility condition in `render()`
 
 ## 2.0.1 - 2024-08-02
