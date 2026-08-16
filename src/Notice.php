@@ -250,8 +250,8 @@ class Notice {
 	 * @return bool True if it's time to show notice.
 	 */
 	protected function is_time_to_show() {
-		// Get the notice time.
-		$time = get_site_option( $this->key( 'time' ) );
+		// Get the notice time. Stored per-site so each site counts its own usage.
+		$time = get_option( $this->key( 'time' ) );
 
 		$current_time      = current_datetime();
 		$current_timestamp = $current_time->getTimestamp();
@@ -265,7 +265,7 @@ class Notice {
 			$time = $new_target_date->getTimestamp();
 
 			// Set to future.
-			update_site_option( $this->key( 'time' ), $time );
+			update_option( $this->key( 'time' ), $time );
 
 			return false;
 		}
@@ -286,7 +286,7 @@ class Notice {
 		$current_user = wp_get_current_user();
 
 		// Check if current item is dismissed.
-		return (bool) get_user_meta( $current_user->ID, $this->key( 'dismissed' ), true );
+		return (bool) get_user_meta( $current_user->ID, $this->dismissed_key(), true );
 	}
 
 	/**
@@ -421,12 +421,12 @@ class Notice {
 
 					$time = $new_target_date->getTimestamp();
 
-					update_site_option( $this->key( 'time' ), $time );
+					update_option( $this->key( 'time' ), $time );
 					break;
 
 				case 'dismiss':
 					// Do not show again to this user.
-					update_user_meta( get_current_user_id(), $this->key( 'dismissed' ), true );
+					update_user_meta( get_current_user_id(), $this->dismissed_key(), true );
 					break;
 			}
 		}
@@ -496,5 +496,20 @@ class Notice {
 	 */
 	private function key( $key ) {
 		return $this->prefix . '_wpan_' . $key;
+	}
+
+	/**
+	 * User meta key for the dismissed flag.
+	 *
+	 * User meta is shared across the whole network on multisite, so the key is
+	 * scoped by blog ID to keep dismissal per-site. On single site the blog ID
+	 * is always 1.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string Blog-scoped dismissed key.
+	 */
+	private function dismissed_key() {
+		return $this->key( 'dismissed' ) . '_' . get_current_blog_id();
 	}
 }

@@ -350,9 +350,27 @@ class NoticeTest extends TestCase {
 
 		$this->assertFalse( $this->call( $notice, 'is_dismissed' ) );
 
-		WPAN_Test_State::$user_meta[ $this->call( $notice, 'key', 'dismissed' ) ] = true;
+		WPAN_Test_State::$user_meta[ $this->call( $notice, 'dismissed_key' ) ] = true;
 
 		$this->assertTrue( $this->call( $notice, 'is_dismissed' ) );
+	}
+
+	/**
+	 * Dismissal is scoped per site: dismissing on one blog does not leak to another.
+	 *
+	 * @return void
+	 */
+	public function test_dismissal_is_per_site_on_multisite() {
+		$notice = $this->make( [ 'slug' => 'my-plugin' ] );
+
+		// Dismiss on blog 1.
+		WPAN_Test_State::$blog_id = 1;
+		WPAN_Test_State::$user_meta[ $this->call( $notice, 'dismissed_key' ) ] = true;
+		$this->assertTrue( $this->call( $notice, 'is_dismissed' ) );
+
+		// Same user, different site: still visible.
+		WPAN_Test_State::$blog_id = 2;
+		$this->assertFalse( $this->call( $notice, 'is_dismissed' ) );
 	}
 
 	/**
@@ -414,7 +432,7 @@ class NoticeTest extends TestCase {
 		$this->make_due( $notice );
 		$this->assertTrue( $this->call( $notice, 'can_show' ) );
 
-		WPAN_Test_State::$user_meta[ $this->call( $notice, 'key', 'dismissed' ) ] = true;
+		WPAN_Test_State::$user_meta[ $this->call( $notice, 'dismissed_key' ) ] = true;
 		$this->assertFalse( $this->call( $notice, 'can_show' ) );
 
 		WPAN_Test_State::$user_meta = [];

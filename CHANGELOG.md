@@ -4,6 +4,8 @@
 - Added: PHPUnit test suite
 - Changed: removed text domain from default strings
 - Fixed: notice visibility condition in `render()`
+- Fixed: dismiss/later actions ignored when `screens` was set
+- Fixed: multisite compatibility - timer stored per-site, dismissal scoped per-user per-site
 
 ## 2.0.1 - 2024-08-02
 - Changed: removed unused files

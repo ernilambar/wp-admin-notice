@@ -47,6 +47,9 @@ final class WPAN_Test_State {
 
 	/** @var bool Whether get_current_screen() should exist. */
 	public static $has_screen_function = true;
+
+	/** @var int Value returned by the get_current_blog_id() stub. */
+	public static $blog_id = 1;
 }
 
 /**
@@ -64,6 +67,7 @@ function wpan_reset_state() {
 	WPAN_Test_State::$screen              = 'dashboard';
 	WPAN_Test_State::$is_admin            = true;
 	WPAN_Test_State::$has_screen_function = true;
+	WPAN_Test_State::$blog_id             = 1;
 }
 
 // ---------------------------------------------------------------------------
@@ -101,6 +105,27 @@ if ( ! function_exists( 'update_site_option' ) ) {
 	function update_site_option( $option, $value ) {
 		WPAN_Test_State::$options[ $option ] = $value;
 		return true;
+	}
+}
+
+if ( ! function_exists( 'get_option' ) ) {
+	function get_option( $option, $default = false ) {
+		return array_key_exists( $option, WPAN_Test_State::$options )
+			? WPAN_Test_State::$options[ $option ]
+			: $default;
+	}
+}
+
+if ( ! function_exists( 'update_option' ) ) {
+	function update_option( $option, $value ) {
+		WPAN_Test_State::$options[ $option ] = $value;
+		return true;
+	}
+}
+
+if ( ! function_exists( 'get_current_blog_id' ) ) {
+	function get_current_blog_id() {
+		return WPAN_Test_State::$blog_id;
 	}
 }
 
