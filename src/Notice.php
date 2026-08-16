@@ -232,7 +232,7 @@ class Notice {
 	 */
 	public function render() {
 		// Bail if not valid.
-		if ( ! $this->can_show() && ! empty( $this->message ) ) {
+		if ( ! $this->can_show() || empty( $this->message ) ) {
 			return;
 		}
 		?>

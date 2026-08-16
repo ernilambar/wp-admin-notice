@@ -36,7 +36,7 @@
 	<config name="testVersion" value="7.2-"/>
 
 	<!-- Loads the PHP Compatibility ruleset. -->
-	<rule ref="PHPCompatibilityWP" />
+	<rule ref="PHPCompatibility" />
 
 	<!-- Don't worry about files that don't contain any code -->
 	<rule ref="Internal.NoCodeFound">
@@ -69,7 +69,9 @@
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="wp-admin-notice" />
+			<property name="text_domain" type="array">
+				<element value="wp-admin-notice" />
+			</property>
 		</properties>
 	</rule>
 
